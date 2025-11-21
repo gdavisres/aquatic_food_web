@@ -14,12 +14,24 @@ public class Tuna extends Animal implements IObserver {
     }
 
     public void flee() {
-        // Flee logic
+        System.out.println(getName() + " is swimming away FAST! Speed: " + swimmingSpeed);
+        stamina -= 10;
     }
 
     @Override
     public void tick() {
-        // Tick logic
+        if(stamina < 100) stamina++;
+        
+        // Tuna needs to eat too to maintain energy (simulated by stamina here or separate energy)
+        // Let's say it hunts sardines
+        Sardine sardine = Ecosystem.getInstance().findOrganism(Sardine.class);
+        if(sardine != null && Math.random() > 0.7) {
+             System.out.println(getName() + " ate a Sardine!");
+             stamina += 20;
+             if(stamina > 100) stamina = 100;
+        }
+
+        System.out.println(getName() + " is swimming. Stamina: " + stamina);
     }
 
     public double getSwimmingSpeed() {

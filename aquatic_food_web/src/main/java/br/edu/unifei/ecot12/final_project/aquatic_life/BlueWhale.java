@@ -10,23 +10,30 @@ public class BlueWhale extends Animal implements IObserver, IFilterFeeder {
             PlanktonBloom p = (PlanktonBloom) s;
             if(p.getDensity() > 5) {
                 filterFeed(p);
+                p.setDensity(p.getDensity() - 5);
             }
         }
     }
 
     public void surface() {
         oxygen = 100;
+        System.out.println(getName() + " surfaced for air.");
     }
 
     @Override
     public void filterFeed(PlanktonBloom bloom) {
         isFeeding = true;
-        // Feed logic
+        System.out.println(getName() + " is FILTER FEEDING on plankton bloom.");
     }
 
     @Override
     public void tick() {
-        // Tick logic
+        oxygen--;
+        if(oxygen < 10) surface();
+        else if(isFeeding) System.out.println(getName() + " is feeding...");
+        else System.out.println(getName() + " is swimming majestically.");
+        
+        isFeeding = false; // Reset feeding state for next tick
     }
 
     public boolean isFeeding() {

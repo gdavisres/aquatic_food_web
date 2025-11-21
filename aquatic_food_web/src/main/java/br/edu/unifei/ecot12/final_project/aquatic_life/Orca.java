@@ -5,19 +5,36 @@ public class Orca extends AnimalSubject {
     private ORCA_STATE currentState;
     private int packSize;
     private boolean matingSeason;
+    private int migrationCounter = 0;
 
     public void hunt() {
         currentState = ORCA_STATE.HUNTING;
+        System.out.println(getName() + " is HUNTING in a pack of " + packSize + "! Energy: " + energy);
+        energy -= 15;
+        
+        // Chance to eat
+        if(Math.random() > 0.4) {
+             System.out.println(">>> " + getName() + " and pack CAUGHT PREY! Energy restored. <<<");
+             energy += 40;
+             if(energy > 100) energy = 100;
+        }
+
         notifyObservers();
     }
     public void socialize() {
         currentState = ORCA_STATE.SOCIALIZING;
+        System.out.println(getName() + " is SOCIALIZING. Energy: " + energy);
+        energy -= 2; // Socializing burns energy
     }
     public void migrate() {
         currentState = ORCA_STATE.MIGRATING;
+        System.out.println(getName() + " is MIGRATING. Energy: " + energy);
+        energy -= 5;
     }
     public void roam() {
         currentState = ORCA_STATE.ROAMING;
+        System.out.println(getName() + " is ROAMING. Energy: " + energy);
+        energy -= 5;
     }
     public void setState(ORCA_STATE newState) {
         this.currentState = newState;
@@ -29,9 +46,18 @@ public class Orca extends AnimalSubject {
     }
     @Override
     public void tick() {
+        if (migrationCounter > 0) {
+            migrate();
+            migrationCounter--;
+            return;
+        }
+
         if(matingSeason) {
            if(energy < 100) hunt();
-           else migrate();
+           else {
+               migrationCounter = 10;
+               migrate();
+           }
         } else if (energy < 40) {
            hunt();
         } else if (energy < 60) {

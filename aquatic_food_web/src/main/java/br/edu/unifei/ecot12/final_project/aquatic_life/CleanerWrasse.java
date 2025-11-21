@@ -16,21 +16,28 @@ public class CleanerWrasse extends Animal implements IObserver, ICarnivore {
 
     public void clean(Animal target) {
         isCleaning = true;
-        // Clean logic
+        System.out.println(getName() + " is CLEANING " + target.getName() + "'s teeth/scales.");
+        // Symbiosis: Target gains energy/health, Wrasse gains food
+        target.setEnergy(target.getEnergy() + 5);
+        this.energy += 5;
     }
 
     public void hide() {
         isCleaning = false;
+        System.out.println(getName() + " is HIDING from predator.");
     }
 
     @Override
     public void eat(Animal a) {
-        // Eat logic
+        System.out.println(getName() + " is eating parasites from " + a.getName());
     }
 
     @Override
     public void tick() {
-        // Tick logic
+        if(!isCleaning) {
+            System.out.println(getName() + " is looking for a client.");
+        }
+        isCleaning = false; // Reset
     }
 
     public boolean isCleaning() {

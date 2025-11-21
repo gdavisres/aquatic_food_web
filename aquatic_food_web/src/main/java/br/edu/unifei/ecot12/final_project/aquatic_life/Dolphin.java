@@ -7,15 +7,18 @@ public class Dolphin extends AnimalSubject implements IObserver {
 
     public void huntForFish() {
         currentState = DOLPHIN_STATE.HUNTING;
+        System.out.println(getName() + " is HUNTING for fish!");
         notifyObservers();
     }
     public void flee() {
         currentState = DOLPHIN_STATE.FLEEING;
         isFleeing = true;
+        System.out.println(getName() + " is FLEEING from danger!");
     }
     public void play() {
         currentState = DOLPHIN_STATE.PLAYING;
         isFleeing = false;
+        System.out.println(getName() + " is PLAYING happily.");
     }
     public void setState(DOLPHIN_STATE newState) {
         this.currentState = newState;

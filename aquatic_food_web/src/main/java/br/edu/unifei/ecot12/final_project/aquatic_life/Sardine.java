@@ -6,9 +6,16 @@ public class Sardine extends Animal {
 
     public void flee(){
         this.isFleeing = true;
+        // System.out.println(getName() + " is FLEEING!"); // Output handled by SchoolOfFish
     }
     public void forage(){
-        // Forage logic
+        // System.out.println(getName() + " is foraging for food."); // Output handled by SchoolOfFish
+        // Logic: Eat Kelp if available
+        Kelp kelp = Ecosystem.getInstance().findOrganism(Kelp.class);
+        if(kelp != null) {
+            kelp.setBiomass(kelp.getHeight() - 0.1);
+            this.energy += 1;
+        }
     }
     public void tick(){
         weight++;

@@ -31,6 +31,24 @@ public final class Ecosystem {
     public List<AquaticLife> getOrganisms(){
         return organisms;
     }
+    
+    public <T> T findOrganism(Class<T> type) {
+        for(AquaticLife life : organisms) {
+            if(type.isInstance(life)) {
+                return type.cast(life);
+            }
+            // Also check inside groups like KelpForest
+            if(life instanceof AquaticLifeGroup) {
+                for(AquaticLife child : ((AquaticLifeGroup)life).getChildren()) {
+                    if(type.isInstance(child)) {
+                        return type.cast(child);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     public GLOBAL_EVENT getCurrentEvent() {
         return currentEvent;
     }

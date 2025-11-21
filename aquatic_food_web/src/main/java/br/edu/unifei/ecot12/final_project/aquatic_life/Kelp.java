@@ -5,8 +5,9 @@ public class Kelp extends Organism{
     private double biomass;
     
     public void photosynthesis(){
-        height++;
-        biomass++;
+        height += 2.0;
+        biomass = height * 0.5;
+        System.out.println(getName() + " is PHOTOSYNTHESIZING. Biomass: " + biomass);
     }
     public void tick(){
         photosynthesis();

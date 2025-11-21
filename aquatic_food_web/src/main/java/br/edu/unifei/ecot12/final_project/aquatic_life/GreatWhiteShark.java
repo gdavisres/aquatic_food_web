@@ -7,13 +7,27 @@ public class GreatWhiteShark extends AnimalSubject {
 
     public void hunt() {
         currentState = SHARK_STATE.HUNTING;
+        System.out.println(getName() + " is HUNTING! Energy: " + energy);
+        energy -= 10;
+        
+        // Chance to eat and regain energy
+        if(Math.random() > 0.5) {
+            System.out.println(">>> " + getName() + " CAUGHT PREY! Energy restored. <<<");
+            energy += 40;
+            if(energy > 100) energy = 100;
+        }
+        
         notifyObservers();
     }
     public void rest() {
         currentState = SHARK_STATE.RESTING;
+        System.out.println(getName() + " is RESTING. Energy: " + energy);
+        energy -= 2; // Metabolism burns energy even when resting
     }
     public void roam() {
         currentState = SHARK_STATE.ROAMING;
+        System.out.println(getName() + " is ROAMING. Energy: " + energy);
+        energy -= 5;
     }
     public void setState(SHARK_STATE newState) {
         this.currentState = newState;

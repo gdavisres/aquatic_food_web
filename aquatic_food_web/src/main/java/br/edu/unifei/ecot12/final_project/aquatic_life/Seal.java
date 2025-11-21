@@ -13,16 +13,21 @@ public class Seal extends Animal implements IObserver {
 
     public void flee() {
         isHidden = false;
-        // Flee logic
+        System.out.println(getName() + " is FLEEING to safety at speed " + escapeSpeed);
     }
 
     public void hide() {
         isHidden = true;
+        System.out.println(getName() + " is HIDING.");
     }
 
     @Override
     public void tick() {
-        // Tick logic
+        if(isHidden) {
+            System.out.println(getName() + " is staying hidden.");
+        } else {
+            System.out.println(getName() + " is swimming around.");
+        }
     }
 
     public boolean isHidden() {
