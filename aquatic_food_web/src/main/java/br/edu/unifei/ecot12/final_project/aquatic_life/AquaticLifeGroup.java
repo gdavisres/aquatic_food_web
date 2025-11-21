@@ -3,18 +3,17 @@ package br.edu.unifei.ecot12.final_project.aquatic_life;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AquaticLifeGroup {
-    private List<AquaticLife> children;
-    private List<AquaticLife> collection = 
-        new ArrayList<>();
+public abstract class AquaticLifeGroup implements AquaticLife {
+    private List<AquaticLife> children = new ArrayList<>();
+
     public void add(AquaticLife life){
-        collection.add(life);
+        children.add(life);
     }
     public void remove(AquaticLife life){
-        collection.remove(life);
+        children.remove(life);
     }
     public void tick(){
-        for(AquaticLife a : collection){
+        for(AquaticLife a : children){
             a.tick();
         }
     }
@@ -24,11 +23,8 @@ public abstract class AquaticLifeGroup {
     public void setChildren(List<AquaticLife> children) {
         this.children = children;
     }
-    public List<AquaticLife> getCollection() {
-        return collection;
-    }
-    public void setCollection(List<AquaticLife> collection) {
-        this.collection = collection;
-    }
     
+    public String getName() {
+        return this.getClass().getSimpleName();
+    }
 }

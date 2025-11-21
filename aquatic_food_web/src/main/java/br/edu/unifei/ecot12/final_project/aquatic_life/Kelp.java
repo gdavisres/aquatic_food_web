@@ -4,18 +4,12 @@ public class Kelp extends Organism{
     private double height;
     private double biomass;
     
-    public Kelp(double height) {
-        this.height = height;
-        this.biomass = height * 2;
-    }
-
-    public void photosynthesize(){
-        System.out.println(this.getName() + " is photosynthesizing.");   
-        height += 0.5;
-        biomass += 1.0;
+    public void photosynthesis(){
+        height++;
+        biomass++;
     }
     public void tick(){
-        photosynthesize();
+        photosynthesis();
     }
     public double getHeight() {
         return height;
