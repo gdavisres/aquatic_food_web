@@ -1,6 +1,6 @@
 package br.edu.unifei.ecot12.final_project.aquatic_life;
 
-public class GreatWhiteShark extends AnimalSubject {
+public class GreatWhiteShark extends AnimalSubject implements ICarnivore {
     public enum SHARK_STATE { HUNTING, RESTING, ROAMING }
     private SHARK_STATE currentState;
     private double speed;
@@ -12,22 +12,31 @@ public class GreatWhiteShark extends AnimalSubject {
         
         // Chance to eat and regain energy
         if(Math.random() > 0.5) {
-            System.out.println(">>> " + getName() + " CAUGHT PREY! Energy restored. <<<");
-            energy += 40;
-            if(energy > 100) energy = 100;
+            // In a real simulation, we would find a specific target.
+            // For now, we simulate eating a generic prey.
+            eat(null); 
         }
         
         notifyObservers();
+    }
+
+    @Override
+    public void eat(Animal a) {
+        System.out.println(">>> " + getName() + " CAUGHT PREY! Energy restored. <<<");
+        energy += 40;
+        if(energy > 100) energy = 100;
     }
     public void rest() {
         currentState = SHARK_STATE.RESTING;
         System.out.println(getName() + " is RESTING. Energy: " + energy);
         energy -= 2; // Metabolism burns energy even when resting
+        notifyObservers();
     }
     public void roam() {
         currentState = SHARK_STATE.ROAMING;
         System.out.println(getName() + " is ROAMING. Energy: " + energy);
         energy -= 5;
+        notifyObservers();
     }
     public void setState(SHARK_STATE newState) {
         this.currentState = newState;

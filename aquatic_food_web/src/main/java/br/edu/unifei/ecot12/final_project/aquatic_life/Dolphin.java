@@ -1,6 +1,6 @@
 package br.edu.unifei.ecot12.final_project.aquatic_life;
 
-public class Dolphin extends AnimalSubject implements IObserver {
+public class Dolphin extends AnimalSubject implements IObserver, ICarnivore {
     public enum DOLPHIN_STATE { HUNTING, FLEEING, PLAYING }
     private DOLPHIN_STATE currentState;
     private boolean isFleeing;
@@ -8,7 +8,13 @@ public class Dolphin extends AnimalSubject implements IObserver {
     public void huntForFish() {
         currentState = DOLPHIN_STATE.HUNTING;
         System.out.println(getName() + " is HUNTING for fish!");
+        eat(null); // Simulate eating
         notifyObservers();
+    }
+
+    @Override
+    public void eat(Animal a) {
+        System.out.println(getName() + " caught a fish!");
     }
     public void flee() {
         currentState = DOLPHIN_STATE.FLEEING;

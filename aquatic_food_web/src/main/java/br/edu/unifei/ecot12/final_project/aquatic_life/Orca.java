@@ -1,6 +1,6 @@
 package br.edu.unifei.ecot12.final_project.aquatic_life;
 
-public class Orca extends AnimalSubject {
+public class Orca extends AnimalSubject implements ICarnivore {
     public enum ORCA_STATE { HUNTING, SOCIALIZING, MIGRATING, ROAMING }
     private ORCA_STATE currentState;
     private int packSize;
@@ -14,12 +14,17 @@ public class Orca extends AnimalSubject {
         
         // Chance to eat
         if(Math.random() > 0.4) {
-             System.out.println(">>> " + getName() + " and pack CAUGHT PREY! Energy restored. <<<");
-             energy += 40;
-             if(energy > 100) energy = 100;
+             eat(null);
         }
 
         notifyObservers();
+    }
+
+    @Override
+    public void eat(Animal a) {
+        System.out.println(">>> " + getName() + " and pack CAUGHT PREY! Energy restored. <<<");
+        energy += 40;
+        if(energy > 100) energy = 100;
     }
     public void socialize() {
         currentState = ORCA_STATE.SOCIALIZING;

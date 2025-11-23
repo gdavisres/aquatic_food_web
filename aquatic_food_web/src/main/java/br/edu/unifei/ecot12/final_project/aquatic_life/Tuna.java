@@ -1,6 +1,6 @@
 package br.edu.unifei.ecot12.final_project.aquatic_life;
 
-public class Tuna extends Animal implements IObserver {
+public class Tuna extends Animal implements IObserver, ICarnivore {
     private double swimmingSpeed;
     private int stamina;
 
@@ -13,6 +13,13 @@ public class Tuna extends Animal implements IObserver {
         }
     }
 
+    @Override
+    public void eat(Animal a) {
+        System.out.println(getName() + " ate a " + (a != null ? a.getName() : "prey") + "!");
+        stamina += 20;
+        if(stamina > 100) stamina = 100;
+    }
+
     public void flee() {
         System.out.println(getName() + " is swimming away FAST! Speed: " + swimmingSpeed);
         stamina -= 10;
@@ -22,10 +29,7 @@ public class Tuna extends Animal implements IObserver {
     public void tick() {
         if(stamina < 100) stamina++;
         
-        // Tuna needs to eat too to maintain energy (simulated by stamina here or separate energy)
-        // Let's say it hunts sardines
-        Sardine sardine = Ecosystem.getInstance().findOrganism(Sardine.class);
-        if(sardine != null && Math.random() > 0.7) {
+        if(Math.random() > 0.7) {
              System.out.println(getName() + " ate a Sardine!");
              stamina += 20;
              if(stamina > 100) stamina = 100;

@@ -31,13 +31,7 @@ public class SeaTurtle extends Animal implements IObserver, IHerbivore {
         if(isHidingInShell) {
             System.out.println(getName() + " is waiting inside shell.");
         } else {
-            // Try to find kelp to eat
-            Kelp kelp = Ecosystem.getInstance().findOrganism(Kelp.class);
-            if(kelp != null) {
-                graze(kelp);
-            } else {
-                System.out.println(getName() + " is swimming slowly (no kelp found).");
-            }
+            System.out.println(getName() + " is swimming and grazing on kelp.");
         }
     }
 
