@@ -1,6 +1,6 @@
 package br.edu.unifei.ecot12.final_project.aquatic_life;
 
-public class Sardine extends Animal implements IHerbivore {
+public class Sardine extends Animal {
     private double weight;
     private boolean isFleeing;
 
@@ -9,11 +9,8 @@ public class Sardine extends Animal implements IHerbivore {
         // System.out.println(getName() + " is FLEEING!"); // Output handled by SchoolOfFish
     }
     public void forage(){
-        graze(null);
-    }
-    @Override
-    public void graze(Kelp plant) {
-        this.energy += 1;
+        System.out.println(getName() + " is FORAGING for plankton.");
+        weight += 0.1;
     }
     public void tick(){
         weight++;

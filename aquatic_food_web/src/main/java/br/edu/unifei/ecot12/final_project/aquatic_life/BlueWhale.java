@@ -28,9 +28,15 @@ public class BlueWhale extends Animal implements IObserver, IFilterFeeder {
 
     @Override
     public void tick() {
-        oxygen--;
+        oxygen -= 10;
+        energy -= 5;
+
         if(oxygen < 10) surface();
-        else if(isFeeding) System.out.println(getName() + " is feeding...");
+
+        else if(energy >= 50) {
+            System.out.println(getName() + " is feeding...");
+            filterFeed(null);
+        }
         else System.out.println(getName() + " is swimming majestically.");
         
         isFeeding = false; // Reset feeding state for next tick
