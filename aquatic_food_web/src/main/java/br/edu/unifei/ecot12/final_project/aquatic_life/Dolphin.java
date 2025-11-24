@@ -7,7 +7,7 @@ public class Dolphin extends AnimalSubject implements IObserver, ICarnivore {
 
     public void huntForFish() {
         currentState = DOLPHIN_STATE.HUNTING;
-        System.out.println(getName() + " is HUNTING for fish!");
+        System.out.println(getName() + " is HUNTING for fish! Energy: " + energy);
         eat(null); // Simulate eating
         notifyObservers();
     }
@@ -15,16 +15,20 @@ public class Dolphin extends AnimalSubject implements IObserver, ICarnivore {
     @Override
     public void eat(Animal a) {
         System.out.println(getName() + " caught a fish!");
+        energy += 30;
     }
     public void flee() {
         currentState = DOLPHIN_STATE.FLEEING;
         isFleeing = true;
         System.out.println(getName() + " is FLEEING from danger!");
+        notifyObservers();
     }
     public void play() {
         currentState = DOLPHIN_STATE.PLAYING;
         isFleeing = false;
-        System.out.println(getName() + " is PLAYING happily.");
+        System.out.println(getName() + " is PLAYING happily. Energy: " + energy);
+        energy -= 5;
+        notifyObservers();
     }
     public void setState(DOLPHIN_STATE newState) {
         this.currentState = newState;
@@ -43,7 +47,13 @@ public class Dolphin extends AnimalSubject implements IObserver, ICarnivore {
     }
     @Override
     public void tick() {
-        if(!isFleeing) play();
+        if(!isFleeing){
+            if (energy > 50) {
+                play();
+            } else {
+                huntForFish();
+            }
+        }
     }
 
     public boolean isFleeing() {

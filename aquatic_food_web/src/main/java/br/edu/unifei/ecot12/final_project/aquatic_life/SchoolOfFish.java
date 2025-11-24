@@ -4,7 +4,9 @@ public class SchoolOfFish extends AquaticLifeGroup implements IObserver {
 
     @Override
     public void update(ISubject s) {
-        scatter();
+        if (s.getState() == SUBJECT_STATE.HUNTING) {
+            scatter();
+        }
     }
 
     public void scatter() {
@@ -18,7 +20,7 @@ public class SchoolOfFish extends AquaticLifeGroup implements IObserver {
 
     @Override
     public void tick() {
-        super.tick(); // Updates individual sardines (weight++, state)
+        super.tick();// Updates individual sardines (weight++, state)
         
         // Check state of one to determine group state for output
         if(!getChildren().isEmpty() && getChildren().get(0) instanceof Sardine) {

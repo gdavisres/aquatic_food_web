@@ -23,7 +23,8 @@ public class BlueWhale extends Animal implements IObserver, IFilterFeeder {
     @Override
     public void filterFeed(PlanktonBloom bloom) {
         isFeeding = true;
-        System.out.println(getName() + " is FILTER FEEDING on plankton bloom.");
+        energy += 20;
+        System.out.println(getName() + " is FILTER FEEDING on plankton bloom. Energy: " + energy);
     }
 
     @Override
@@ -33,11 +34,11 @@ public class BlueWhale extends Animal implements IObserver, IFilterFeeder {
 
         if(oxygen < 10) surface();
 
-        else if(energy >= 50) {
+        else if(energy <= 50) {
             System.out.println(getName() + " is feeding...");
             filterFeed(null);
         }
-        else System.out.println(getName() + " is swimming majestically.");
+        else System.out.println(getName() + " is swimming majestically. Energy: " + energy + ", Oxygen: " + oxygen);
         
         isFeeding = false; // Reset feeding state for next tick
     }

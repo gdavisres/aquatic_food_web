@@ -7,6 +7,7 @@ public class Simulation {
         sim.setup();
         sim.runLoop();
     }
+
     public void setup(){
         ecosystem = Ecosystem.getInstance();
         
@@ -24,6 +25,7 @@ public class Simulation {
 
         Dolphin dolphin = new Dolphin();
         dolphin.setName("Flipper, the Dolphin");
+        dolphin.setEnergy(60);
         ecosystem.addOrganism(dolphin);
 
         PlanktonBloom bloom = new PlanktonBloom();
@@ -32,7 +34,7 @@ public class Simulation {
 
         // 2. Create Observers (Prey/Reactive)
         SchoolOfFish school = new SchoolOfFish();
-        // school.setName("Sardine School"); // Composite doesn't have setName in abstract yet, but implemented in concrete
+        // school.setName("Sardine School");
         
         for(int i=0; i<5; i++) {
             Sardine s = new Sardine();
@@ -50,10 +52,12 @@ public class Simulation {
         tuna.setName("Charlie, the Tuna");
         tuna.setSwimmingSpeed(25.0);
         tuna.setStamina(100);
+        tuna.setEnergy(100);
         ecosystem.addOrganism(tuna);
 
         BlueWhale whale = new BlueWhale();
         whale.setName("Big Blue, the Blue Whale");
+        whale.setEnergy(100);
         whale.setOxygen(100);
         ecosystem.addOrganism(whale);
 
@@ -75,8 +79,8 @@ public class Simulation {
         forest.add(kelp1);
         ecosystem.addOrganism(forest);
 
-        // 4. Wire Observers to Subjects
-        shark.attach(school);
+        // 4. Attach Observers to Subjects
+        // shark.attach(school);
         shark.attach(seal);
         shark.attach(tuna);
         shark.attach(turtle);
@@ -86,6 +90,8 @@ public class Simulation {
         orca.attach(seal);
         orca.attach(tuna);
         orca.attach(dolphin);
+
+        dolphin.attach(school);
         
         bloom.attach(whale); // Whale observes bloom
     }
